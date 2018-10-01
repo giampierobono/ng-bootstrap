@@ -154,6 +154,27 @@ describe('ngb-tooltip', () => {
       expect(directive.nativeElement.getAttribute('aria-describedby')).toBeNull();
     });
 
+    it('should open and close a tooltip - default settings and custom aria-describedby id', () => {
+      const fixture = createTestComponent(`
+        <ng-template #tipContent>
+          <div id="my-desc">I have a custom aria-describedby attribute</div>
+        </ng-template>
+        <div [ngbTooltip]="tipContent" customAriaDescribedBy="my-desc"></div>`);
+      const directive = fixture.debugElement.query(By.directive(NgbTooltip));
+
+      directive.triggerEventHandler('mouseenter', {});
+      fixture.detectChanges();
+      const windowEl = getWindow(fixture.nativeElement);
+      expect(windowEl.textContent.trim()).toBe('I have a custom aria-describedby attribute');
+      expect(windowEl.parentNode).toBe(fixture.nativeElement);
+      expect(directive.nativeElement.getAttribute('aria-describedby')).toBe('my-desc');
+
+      directive.triggerEventHandler('mouseleave', {});
+      fixture.detectChanges();
+      expect(getWindow(fixture.nativeElement)).toBeNull();
+      expect(directive.nativeElement.getAttribute('aria-describedby')).toBeNull();
+    });
+
     it('should not open a tooltip if content is falsy', () => {
       const fixture = createTestComponent(`<div [ngbTooltip]="notExisting"></div>`);
       const directive = fixture.debugElement.query(By.directive(NgbTooltip));
@@ -738,6 +759,7 @@ describe('ngb-tooltip', () => {
       config.triggers = 'click';
       config.container = 'body';
       config.tooltipClass = 'my-custom-class';
+      config.customAriaDescribedBy = 'my-description';
     }));
 
     it('should initialize inputs with provided config', () => {
@@ -749,6 +771,7 @@ describe('ngb-tooltip', () => {
       expect(tooltip.triggers).toBe(config.triggers);
       expect(tooltip.container).toBe(config.container);
       expect(tooltip.tooltipClass).toBe(config.tooltipClass);
+      expect(tooltip.customAriaDescribedBy).toBe(config.customAriaDescribedBy);
     });
   });
 
@@ -758,6 +781,7 @@ describe('ngb-tooltip', () => {
     config.triggers = 'click';
     config.container = 'body';
     config.tooltipClass = 'my-custom-class';
+    config.customAriaDescribedBy = 'my-description';
 
     beforeEach(() => {
       TestBed.configureTestingModule(
@@ -772,6 +796,7 @@ describe('ngb-tooltip', () => {
       expect(tooltip.triggers).toBe(config.triggers);
       expect(tooltip.container).toBe(config.container);
       expect(tooltip.tooltipClass).toBe(config.tooltipClass);
+      expect(tooltip.customAriaDescribedBy).toBe(config.customAriaDescribedBy);
     });
   });
 

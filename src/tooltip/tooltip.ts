@@ -118,6 +118,10 @@ export class NgbTooltip implements OnInit, OnDestroy {
    */
   @Input() tooltipClass: string;
   /**
+   * Element id to be used as tooltip description for the tooltip
+   */
+  @Input() customAriaDescribedBy: string;
+  /**
    * Emits an event when the tooltip is shown
    */
   @Output() shown = new EventEmitter();
@@ -143,6 +147,7 @@ export class NgbTooltip implements OnInit, OnDestroy {
     this.container = config.container;
     this.disableTooltip = config.disableTooltip;
     this.tooltipClass = config.tooltipClass;
+    this.customAriaDescribedBy = config.customAriaDescribedBy;
     this._popupService = new PopupService<NgbTooltipWindow>(
         NgbTooltipWindow, injector, viewContainerRef, _renderer, componentFactoryResolver);
 
@@ -179,7 +184,7 @@ export class NgbTooltip implements OnInit, OnDestroy {
       this._windowRef.instance.tooltipClass = this.tooltipClass;
       this._windowRef.instance.id = this._ngbTooltipWindowId;
 
-      this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', this._ngbTooltipWindowId);
+      this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', this.customAriaDescribedBy || this._ngbTooltipWindowId);
 
       if (this.container === 'body') {
         this._document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);

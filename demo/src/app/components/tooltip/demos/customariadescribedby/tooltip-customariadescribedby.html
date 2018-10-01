@@ -1,0 +1,12 @@
+<p>
+  You can optionally pass, for accessibility purposes, a custom element id to be set as aria-describedby attribute
+  to element triggering the tooltip using <code>ariaDescribedBy</code>
+</p>
+
+<ng-template #tipContent>
+  <div id="my-desc">This will be read by the SR!</div><div>This won't :(!</div></ng-template>
+
+<button type="button" class="btn btn-outline-secondary" [ngbTooltip]='tipContent'
+  customAriaDescribedBy="my-desc">
+  Tooltip with custom aria-describedby
+</button>

@@ -13,6 +13,7 @@ import { NgbdTooltipCustomclass } from './demos/customclass/tooltip-customclass'
 import { NgbdTooltipTplcontent } from './demos/tplcontent/tooltip-tplcontent';
 import { NgbdTooltipTplwithcontext } from './demos/tplwithcontext/tooltip-tplwithcontext';
 import { NgbdTooltipTriggers } from './demos/triggers/tooltip-triggers';
+import {NgbdTooltipCustomAriaDescribedBy} from './demos/customariadescribedby/tooltip-customariadescribedby';
 
 const DEMO_DIRECTIVES = [
   NgbdTooltipBasic,
@@ -22,7 +23,8 @@ const DEMO_DIRECTIVES = [
   NgbdTooltipTriggers,
   NgbdTooltipAutoclose,
   NgbdTooltipConfig,
-  NgbdTooltipTplwithcontext
+  NgbdTooltipTplwithcontext,
+  NgbdTooltipCustomAriaDescribedBy
 ];
 
 const DEMOS = {
@@ -62,11 +64,17 @@ const DEMOS = {
     code: require('!!raw-loader!./demos/container/tooltip-container'),
     markup: require('!!raw-loader!./demos/container/tooltip-container.html')
   },
-  'customclass': {
+  customclass: {
     title: 'Tooltip with custom class',
     type: NgbdTooltipCustomclass,
     code: require('!!raw-loader!./demos/customclass/tooltip-customclass'),
     markup: require('!!raw-loader!./demos/customclass/tooltip-customclass.html')
+  },
+  customariadescribedby: {
+    title: 'Tooltip with custom aria-describedby',
+    type: NgbdTooltipCustomAriaDescribedBy,
+    code: require('!!raw-loader!./demos/customariadescribedby/tooltip-customariadescribedby'),
+    markup: require('!!raw-loader!./demos/customariadescribedby/tooltip-customariadescribedby.html')
   },
   config: {
     title: 'Global configuration of tooltips',

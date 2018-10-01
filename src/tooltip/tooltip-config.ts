@@ -14,4 +14,5 @@ export class NgbTooltipConfig {
   container: string;
   disableTooltip = false;
   tooltipClass: string;
+  customAriaDescribedBy: string;
 }
