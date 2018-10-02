@@ -14,4 +14,5 @@ export class NgbPopoverConfig {
   container: string;
   disablePopover = false;
   popoverClass: string;
+  customAriaDescribedBy: string;
 }

@@ -138,6 +138,10 @@ export class NgbPopover implements OnInit, OnDestroy, OnChanges {
    */
   @Input() popoverClass: string;
   /**
+   * Element id to be used as tooltip description for the popover
+   */
+  @Input() customAriaDescribedBy: string;
+  /**
    * Emits an event when the popover is shown
    */
   @Output() shown = new EventEmitter();
@@ -171,6 +175,7 @@ export class NgbPopover implements OnInit, OnDestroy, OnChanges {
     this.container = config.container;
     this.disablePopover = config.disablePopover;
     this.popoverClass = config.popoverClass;
+    this.customAriaDescribedBy = config.customAriaDescribedBy;
     this._popupService = new PopupService<NgbPopoverWindow>(
         NgbPopoverWindow, injector, viewContainerRef, _renderer, componentFactoryResolver);
 
@@ -196,7 +201,8 @@ export class NgbPopover implements OnInit, OnDestroy, OnChanges {
       this._windowRef.instance.popoverClass = this.popoverClass;
       this._windowRef.instance.id = this._ngbPopoverWindowId;
 
-      this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', this._ngbPopoverWindowId);
+      this._renderer.setAttribute(
+          this._elementRef.nativeElement, 'aria-describedby', this.customAriaDescribedBy || this._ngbPopoverWindowId);
 
       if (this.container === 'body') {
         this._document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);

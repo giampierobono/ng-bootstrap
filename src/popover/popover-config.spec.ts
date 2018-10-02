@@ -9,6 +9,7 @@ describe('ngb-popover-config', () => {
     expect(config.triggers).toBe('click');
     expect(config.container).toBeUndefined();
     expect(config.disablePopover).toBe(false);
+    expect(config.customAriaDescribedBy).toBeUndefined();
     expect(config.popoverClass).toBeUndefined();
   });
 });

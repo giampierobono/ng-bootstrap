@@ -177,6 +177,27 @@ describe('ngb-popover', () => {
       expect(directive.nativeElement.getAttribute('aria-describedby')).toBeNull();
     });
 
+    it('should open and close a popover - default settings and custom aria-describedby id', () => {
+      const fixture = createTestComponent(`
+        <ng-template #popContent>
+          <div id="my-desc">I have a custom aria-describedby attribute</div><destroyable-cmpt></destroyable-cmpt>
+        </ng-template>
+        <div [ngbPopover]="popContent" popoverTitle="Test" customAriaDescribedBy="my-desc"></div>`);
+      const directive = fixture.debugElement.query(By.directive(NgbPopover));
+      directive.triggerEventHandler('click', {});
+      fixture.detectChanges();
+
+      const windowEl = getWindow(fixture.nativeElement);
+      expect(windowEl.parentNode).toBe(fixture.nativeElement);
+      expect(directive.nativeElement.getAttribute('aria-describedby')).toBe('my-desc');
+
+      directive.triggerEventHandler('click', {});
+      fixture.detectChanges();
+
+      expect(getWindow(fixture.nativeElement)).toBeNull();
+      expect(directive.nativeElement.getAttribute('aria-describedby')).toBeNull();
+    });
+
     it('should accept a template for the title and properly destroy it when closing', () => {
       const fixture = createTestComponent(`
           <ng-template #t>Hello, {{name}}! <destroyable-cmpt></destroyable-cmpt></ng-template>
